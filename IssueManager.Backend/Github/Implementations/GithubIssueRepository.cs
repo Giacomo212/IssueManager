@@ -36,12 +36,12 @@ public class GithubIssueRepository : IIssueRepository{
             throw new Exception($"Error, code {res.StatusCode}");
     }
 
-    public async Task<IEnumerable<IssueModel>> GetIssueList(IRepoIDProvider repoModel){
+    public async Task<IEnumerable<NewIssueModel>> GetIssueList(IRepoIDProvider repoModel){
         using var client = _httpClientFactory.CreateClient(CommonNames.GithubName);
         var uri = new Uri(client.BaseAddress, $"/repos/{repoModel.GetRepoId}/issues");
         var httpRequestTask = client.GetAsync(uri);
         var responseMessage = await httpRequestTask;
-        var jsonAsync = await responseMessage.Content.ReadFromJsonAsync<IssueModel[]>();
+        var jsonAsync = await responseMessage.Content.ReadFromJsonAsync<NewIssueModel[]>();
         return jsonAsync;
     }
 

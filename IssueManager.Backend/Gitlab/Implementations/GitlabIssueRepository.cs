@@ -36,7 +36,7 @@ public class GitlabIssueRepository : IIssueRepository{
             throw new Exception($"Error, code {responseMessage.StatusCode}");
     }
 
-    public async Task<IEnumerable<IssueModel>> GetIssueList(IRepoIDProvider repoModel){
+    public async Task<IEnumerable<NewIssueModel>> GetIssueList(IRepoIDProvider repoModel){
         using var client = _httpClientFactory.CreateClient(CommonNames.GitlabName);
         var uri = new Uri(client.BaseAddress, $"/api/v4/projects/{repoModel.GetRepoId}/issues");
         var httpRequestTask = client.GetAsync(uri);
