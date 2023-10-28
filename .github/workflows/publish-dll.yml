@@ -80,4 +80,4 @@ jobs:
       - name: Create the package
         run: dotnet pack --configuration Release
       - name: Publish the package to GPR
-        run: dotnet nuget push IssueManager.Backend/bin/Release/*.nupkg --force
+        run: dotnet nuget push IssueManager.Backend/bin/Release/*.nupkg --api-key ${{secrets.GITHUB_TOKEN}} --skip-duplicate
