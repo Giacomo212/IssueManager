@@ -46,8 +46,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref }}
 
-  build:
-
+  dotnet-test:
+    needs: dotnet-format
     runs-on: ubuntu-latest
 
     steps:
@@ -62,7 +62,8 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-  deploy:
+  dotnet-deploy:
+    needs: dotnet-test
     runs-on: ubuntu-latest
     permissions:
       packages: write
