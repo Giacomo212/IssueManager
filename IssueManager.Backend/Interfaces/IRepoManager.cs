@@ -3,7 +3,7 @@ using IssueManager.Abstractions.Models;
 
 namespace IssueManager.Abstractions.Implementations;
 
-public interface IRepoManager{
+public interface IRepoManager {
     public Task AddIssue(IRepoIDProvider repoModel, NewIssueModel model);
 
     public Task UpdateIssue(IRepoIDProvider repoModel, IssueModel model);

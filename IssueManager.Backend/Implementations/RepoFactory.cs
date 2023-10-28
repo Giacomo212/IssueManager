@@ -4,8 +4,8 @@ using IssueManager.Abstractions.Interfaces;
 
 namespace IssueManager.Abstractions.Implementations;
 
-public class RepoFactory : IRepoFactory{
-    public IIssueRepository CreateRepo(string name){
+public class RepoFactory : IRepoFactory {
+    public IIssueRepository CreateRepo(string name) {
         var httpfactory = new HttpClientFactory();
         if (name.ToLower().Trim() == CommonNames.GitlabName.ToLower().Trim())
             return new GitlabIssueRepository(httpfactory);

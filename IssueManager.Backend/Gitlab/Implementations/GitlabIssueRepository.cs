@@ -1,20 +1,20 @@
-using System.Net;
-using System.Net.Http.Json;
 using IssueManager.Abstractions.Gitlab.Mappings;
 using IssueManager.Abstractions.Gitlab.Models;
 using IssueManager.Abstractions.Interfaces;
 using IssueManager.Abstractions.Models;
+using System.Net;
+using System.Net.Http.Json;
 
 namespace IssueManager.Abstractions.Gitlab.Implementations;
 
-public class GitlabIssueRepository : IIssueRepository{
-    public GitlabIssueRepository(IHttpClientFactory clientFactory){
+public class GitlabIssueRepository : IIssueRepository {
+    public GitlabIssueRepository(IHttpClientFactory clientFactory) {
         _httpClientFactory = clientFactory;
     }
 
-    private IHttpClientFactory _httpClientFactory{ get; }
-    
-    public async Task AddIssue(IRepoIDProvider repoModel, NewIssueModel model){
+    private IHttpClientFactory _httpClientFactory { get; }
+
+    public async Task AddIssue(IRepoIDProvider repoModel, NewIssueModel model) {
         using var client = _httpClientFactory.CreateClient(CommonNames.GitlabName);
         var uri = new Uri(client.BaseAddress, $"/api/v4/projects/{repoModel.GetRepoId}/issues");
         var mappedissue = IssueMappings.MapGitlab(model);
@@ -24,10 +24,10 @@ public class GitlabIssueRepository : IIssueRepository{
             throw new Exception($"Error, code {responseMessage.StatusCode}");
     }
 
-    public async Task CloseIssue(IRepoIDProvider repoModel, int id){
+    public async Task CloseIssue(IRepoIDProvider repoModel, int id) {
         using var client = _httpClientFactory.CreateClient(CommonNames.GitlabName);
         var uri = new Uri(client.BaseAddress, $"/api/v4/projects/{repoModel.GetRepoId}/issues/{id}");
-        var model = new CloseGitlabIssueModel(){
+        var model = new CloseGitlabIssueModel() {
             state_event = "close"
         };
         var httpRequestTask = client.PutAsJsonAsync(uri, model);
@@ -36,7 +36,7 @@ public class GitlabIssueRepository : IIssueRepository{
             throw new Exception($"Error, code {responseMessage.StatusCode}");
     }
 
-    public async Task<IEnumerable<NewIssueModel>> GetIssueList(IRepoIDProvider repoModel){
+    public async Task<IEnumerable<NewIssueModel>> GetIssueList(IRepoIDProvider repoModel) {
         using var client = _httpClientFactory.CreateClient(CommonNames.GitlabName);
         var uri = new Uri(client.BaseAddress, $"/api/v4/projects/{repoModel.GetRepoId}/issues");
         var httpRequestTask = client.GetAsync(uri);
@@ -45,7 +45,7 @@ public class GitlabIssueRepository : IIssueRepository{
         return jsonAsync;
     }
 
-    public async Task UpdateIssue(IRepoIDProvider repoModel, IssueModel model){
+    public async Task UpdateIssue(IRepoIDProvider repoModel, IssueModel model) {
         using var client = _httpClientFactory.CreateClient(CommonNames.GitlabName);
         var uri = new Uri(client.BaseAddress, $"/api/v4/projects/{repoModel.GetRepoId}/issues/{model.number}");
         var mappedissue = IssueMappings.MapGitlab(model);

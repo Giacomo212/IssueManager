@@ -1,20 +1,20 @@
-using System.Net;
-using System.Net.Http.Json;
 using IssueManager.Abstractions.Github.Mappings;
 using IssueManager.Abstractions.Github.Models;
 using IssueManager.Abstractions.Interfaces;
 using IssueManager.Abstractions.Models;
+using System.Net;
+using System.Net.Http.Json;
 
 namespace IssueManager.Abstractions.Github.Implementations;
 
-public class GithubIssueRepository : IIssueRepository{
+public class GithubIssueRepository : IIssueRepository {
     private readonly IHttpClientFactory _httpClientFactory;
 
-    public GithubIssueRepository(IHttpClientFactory httpClientFactory){
+    public GithubIssueRepository(IHttpClientFactory httpClientFactory) {
         _httpClientFactory = httpClientFactory;
     }
 
-    public async Task AddIssue(IRepoIDProvider repoModel, NewIssueModel model){
+    public async Task AddIssue(IRepoIDProvider repoModel, NewIssueModel model) {
         using var client = _httpClientFactory.CreateClient(CommonNames.GithubName);
         var uri = new Uri(client.BaseAddress, $"/repos/{repoModel.GetRepoId}/issues");
         var mappedissue = IssueMappings.MapGithub(model);
@@ -24,10 +24,10 @@ public class GithubIssueRepository : IIssueRepository{
             throw new Exception($"Error, code {res.StatusCode}");
     }
 
-    public async Task CloseIssue(IRepoIDProvider repoModel, int id){
+    public async Task CloseIssue(IRepoIDProvider repoModel, int id) {
         using var client = _httpClientFactory.CreateClient(CommonNames.GithubName);
         var uri = new Uri(client.BaseAddress, $"/repos/{repoModel.GetRepoId}/issues/{id}");
-        var closedModel = new CloseGithubModel(){
+        var closedModel = new CloseGithubModel() {
             state = "close"
         };
         var httpRequestTask = client.PatchAsJsonAsync<CloseGithubModel>(uri, closedModel);
@@ -36,7 +36,7 @@ public class GithubIssueRepository : IIssueRepository{
             throw new Exception($"Error, code {res.StatusCode}");
     }
 
-    public async Task<IEnumerable<NewIssueModel>> GetIssueList(IRepoIDProvider repoModel){
+    public async Task<IEnumerable<NewIssueModel>> GetIssueList(IRepoIDProvider repoModel) {
         using var client = _httpClientFactory.CreateClient(CommonNames.GithubName);
         var uri = new Uri(client.BaseAddress, $"/repos/{repoModel.GetRepoId}/issues");
         var httpRequestTask = client.GetAsync(uri);
@@ -45,7 +45,7 @@ public class GithubIssueRepository : IIssueRepository{
         return jsonAsync;
     }
 
-    public async Task UpdateIssue(IRepoIDProvider repoModel, IssueModel model){
+    public async Task UpdateIssue(IRepoIDProvider repoModel, IssueModel model) {
         using var client = _httpClientFactory.CreateClient(CommonNames.GithubName);
         var uri = new Uri(client.BaseAddress, $"/repos/{repoModel.GetRepoId}/issues/{model.number}");
         var mappedissue = IssueMappings.MapGithub(model);
