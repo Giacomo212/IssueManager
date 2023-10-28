@@ -4,6 +4,5 @@ namespace IssueManager.Abstractions.Github.Models;
 
 public record CloseGithubModel
 (
-[property: JsonPropertyName("state")]  string State 
-) ;
-    
+[property: JsonPropertyName("state")] string State
+);

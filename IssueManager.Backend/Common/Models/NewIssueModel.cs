@@ -7,5 +7,3 @@ public record NewIssueModel(
      string Title,
      string Body
     );
-
-

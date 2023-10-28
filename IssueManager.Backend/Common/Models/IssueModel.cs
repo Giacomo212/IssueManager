@@ -6,8 +6,7 @@ public record IssueModel(
     string Title,
     string Body,
     int number
-    ) :
-    NewIssueModel(Title, Body);
-
-
-
+    ) : NewIssueModel(
+        Title,
+        Body
+        );
