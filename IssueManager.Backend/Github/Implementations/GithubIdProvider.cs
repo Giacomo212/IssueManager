@@ -8,9 +8,9 @@ public class GithubIdProvider : IRepoIDProvider {
         RepoName = repoName;
     }
     public GithubIdProvider(string id) {
-        var stringSplited = id.Split("/");
-        UserName = stringSplited.First();
-        RepoName = stringSplited.ElementAt(1);
+        var stringSplitted = id.Split("/");
+        UserName = stringSplitted.First();
+        RepoName = stringSplitted.ElementAt(1);
     }
     public string UserName { get; set; }
 
