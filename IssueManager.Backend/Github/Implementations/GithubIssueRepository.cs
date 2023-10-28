@@ -27,9 +27,7 @@ public class GithubIssueRepository : IIssueRepository {
     public async Task CloseIssue(IRepoIDProvider repoModel, int id) {
         using var client = _httpClientFactory.CreateClient(CommonNames.GithubName);
         var uri = new Uri(client.BaseAddress, $"/repos/{repoModel.GetRepoId}/issues/{id}");
-        var closedModel = new CloseGithubModel() {
-            state = "close"
-        };
+        var closedModel = new CloseGithubModel("close");
         var httpRequestTask = client.PatchAsJsonAsync<CloseGithubModel>(uri, closedModel);
         var res = await httpRequestTask;
         if (res.StatusCode != HttpStatusCode.OK)

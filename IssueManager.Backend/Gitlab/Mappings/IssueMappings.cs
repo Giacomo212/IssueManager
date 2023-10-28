@@ -7,18 +7,16 @@ public static class IssueMappings {
 
 
     public static NewIssueModel MapGitlab(NewGitlabIssueModel model) {
-        return new NewIssueModel() {
-            body = model.body,
-
-            title = model.title
-        };
+        return new NewIssueModel(
+            model.Title,
+            model.Body
+            );
     }
     public static NewGitlabIssueModel MapGitlab(NewIssueModel model) {
-        return new NewGitlabIssueModel() {
-            body = model.body,
-
-            title = model.title
-        };
+        return new NewGitlabIssueModel(
+            model.Title,
+            model.Body
+            );
     }
 
 }

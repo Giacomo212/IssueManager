@@ -4,8 +4,8 @@ using System.Text.Json.Serialization;
 namespace IssueManager.Abstractions.Models;
 
 public record NewIssueModel(
-     string title,
-     string body
+     string Title,
+     string Body
     );
 
 

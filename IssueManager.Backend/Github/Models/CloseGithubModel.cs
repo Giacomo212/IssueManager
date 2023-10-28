@@ -1,5 +1,9 @@
+using System.Text.Json.Serialization;
+
 namespace IssueManager.Abstractions.Github.Models;
 
-public class CloseGithubModel {
-    public string state { get; set; }
-}
+public record CloseGithubModel
+(
+[property: JsonPropertyName("state")]  string State 
+) ;
+    

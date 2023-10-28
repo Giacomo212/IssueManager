@@ -1,8 +1,8 @@
+using System.Text.Json.Serialization;
+
 namespace IssueManager.Abstractions.Github.Models;
 
-public class NewGithubIssueModel {
-    public string title { get; set; }
-    public string body { get; set; }
-
-
-}
+public record NewGithubIssueModel(
+    [property: JsonPropertyName("title")] string Title,
+    [property: JsonPropertyName("body")] string Body
+);

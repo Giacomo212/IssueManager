@@ -7,16 +7,16 @@ public static class IssueMappings {
 
 
     public static NewIssueModel MapGithub(NewGithubIssueModel model) {
-        return new NewIssueModel() {
-            body = model.body,
-            title = model.title
-        };
+        return new NewIssueModel(
+            model.Body,
+            model.Title
+            );
     }
     public static NewGithubIssueModel MapGithub(NewIssueModel model) {
-        return new NewGithubIssueModel() {
-            body = model.body,
-            title = model.title
-        };
+        return new NewGithubIssueModel(
+            model.Body,
+            model.Title
+        );
     }
 
 
