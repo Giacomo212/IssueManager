@@ -1,5 +1,8 @@
+using System.Text.Json.Serialization;
+
 namespace IssueManager.Abstractions.Gitlab.Models;
 
-public class CloseGitlabIssueModel {
-    public string state_event { get; set; }
-}
+public record CloseGitlabIssueModel(
+    [property: JsonPropertyName("state_event")] string StateEvent
+);
+    

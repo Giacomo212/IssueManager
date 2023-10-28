@@ -1,6 +1,6 @@
+using IssueManager.Abstractions.Common.Interfaces;
 using IssueManager.Abstractions.Github.Mappings;
 using IssueManager.Abstractions.Github.Models;
-using IssueManager.Abstractions.Interfaces;
 using IssueManager.Abstractions.Models;
 using System.Net;
 using System.Net.Http.Json;
@@ -17,8 +17,8 @@ public class GithubIssueRepository : IIssueRepository {
     public async Task AddIssue(IRepoIDProvider repoModel, NewIssueModel model) {
         using var client = _httpClientFactory.CreateClient(CommonNames.GithubName);
         var uri = new Uri(client.BaseAddress, $"/repos/{repoModel.GetRepoId}/issues");
-        var mappedissue = IssueMappings.MapGithub(model);
-        var httpRequestTask = client.PostAsJsonAsync<NewGithubIssueModel>(uri, mappedissue);
+        var mappedIssue = IssueMappings.MapGithub(model);
+        var httpRequestTask = client.PostAsJsonAsync<NewGithubIssueModel>(uri, mappedIssue);
         var res = await httpRequestTask;
         if (res.StatusCode != HttpStatusCode.Created)
             throw new Exception($"Error, code {res.StatusCode}");
@@ -48,8 +48,8 @@ public class GithubIssueRepository : IIssueRepository {
     public async Task UpdateIssue(IRepoIDProvider repoModel, IssueModel model) {
         using var client = _httpClientFactory.CreateClient(CommonNames.GithubName);
         var uri = new Uri(client.BaseAddress, $"/repos/{repoModel.GetRepoId}/issues/{model.number}");
-        var mappedissue = IssueMappings.MapGithub(model);
-        var httpRequestTask = client.PatchAsJsonAsync(uri, mappedissue);
+        var mappedIssue = IssueMappings.MapGithub(model);
+        var httpRequestTask = client.PatchAsJsonAsync(uri, mappedIssue);
         var res = await httpRequestTask;
         if (res.StatusCode != HttpStatusCode.OK)
             throw new Exception($"response {res.StatusCode}");

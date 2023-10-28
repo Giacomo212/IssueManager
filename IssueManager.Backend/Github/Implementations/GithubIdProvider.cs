@@ -1,4 +1,4 @@
-using IssueManager.Abstractions.Interfaces;
+using IssueManager.Abstractions.Common.Interfaces;
 
 namespace IssueManager.Abstractions.Github.Implementations;
 

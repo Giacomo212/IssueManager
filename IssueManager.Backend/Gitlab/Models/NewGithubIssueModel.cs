@@ -1,8 +1,8 @@
+using System.Text.Json.Serialization;
+
 namespace IssueManager.Abstractions.Gitlab.Models;
 
-public class NewGitlabIssueModel {
-    public string title { get; set; }
-    public string body { get; set; }
-
-
-}
+public record NewGitlabIssueModel(
+    [property: JsonPropertyName("title")] string Title,
+    [property: JsonPropertyName("body")] string Body
+    );
