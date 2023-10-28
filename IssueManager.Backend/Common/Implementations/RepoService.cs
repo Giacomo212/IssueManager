@@ -1,14 +1,14 @@
-using IssueManager.Abstractions.Interfaces;
+using IssueManager.Abstractions.Common.Interfaces;
 using IssueManager.Abstractions.Models;
 using System.Text.Json;
 
-namespace IssueManager.Abstractions.Implementations;
+namespace IssueManager.Abstractions.Common.Implementations;
 
-public class RepoManager : IRepoManager {
+public class RepoService : IRepoService {
 
     private IIssueRepository _issueRepository { get; }
 
-    public RepoManager(IIssueRepository issueRepository) {
+    public RepoService(IIssueRepository issueRepository) {
         _issueRepository = issueRepository;
     }
 
@@ -35,6 +35,8 @@ public class RepoManager : IRepoManager {
     public async Task ImportIssue(IRepoIDProvider repoModel, string path) {
         var issuesString = await File.ReadAllTextAsync(path);
         var issuesDeserialized = JsonSerializer.Deserialize<IssueModel[]>(issuesString);
+        if (issuesDeserialized is null)
+            throw new Exception("Failed to deserialize yours issues");
         foreach (var issue in issuesDeserialized) {
             await _issueRepository.AddIssue(repoModel, issue);
         }

@@ -1,9 +1,8 @@
-using IssueManager.Abstractions.Interfaces;
 using IssueManager.Abstractions.Models;
 
-namespace IssueManager.Abstractions.Implementations;
+namespace IssueManager.Abstractions.Common.Interfaces;
 
-public interface IRepoManager {
+public interface IRepoService {
     public Task AddIssue(IRepoIDProvider repoModel, NewIssueModel model);
 
     public Task UpdateIssue(IRepoIDProvider repoModel, IssueModel model);

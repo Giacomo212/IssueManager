@@ -1,6 +1,6 @@
 using IssueManager.Abstractions.Models;
 
-namespace IssueManager.Abstractions.Interfaces;
+namespace IssueManager.Abstractions.Common.Interfaces;
 
 public interface IIssueRepository {
 
