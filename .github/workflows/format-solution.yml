@@ -27,7 +27,7 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           action: "fix"
-          workspace: "Solution.sln"
+          workspace: "IssueManager.sln"
           only-changed-files: true
 
       - name: Commit files
