@@ -6,7 +6,7 @@ namespace IssueManager.Abstractions.Github.Mappings;
 public static class IssueMappings {
 
 
-    public static NewIssueModel MapGithub(NewGithubIssueModel model){
+    public static NewIssueModel MapGithub(NewGithubIssueModel model) {
         return new NewIssueModel(
             model.Body,
             model.Title
