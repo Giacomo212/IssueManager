@@ -10,6 +10,8 @@ on:
 jobs:
   dotnet-format:
     runs-on: windows-latest
+    permissions:
+      contents: write
     steps:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
